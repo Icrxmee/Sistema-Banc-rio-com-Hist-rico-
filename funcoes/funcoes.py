@@ -3,8 +3,8 @@ from time import sleep
 
 def controlePrincipal():
 
-    saldo = 0 # Saldo do Controle
-    movimentação = [] # 
+    saldo = 0 # Saldo no Controle
+    movimentação = [] # Movimentação no controle
     
     try:
  
@@ -50,7 +50,7 @@ def deposito(saldo, movimentação):
             
             if a <= 0:
                 print("Valor inválido")
-                return saldo
+                continue
 
             saldo += a            
             movimentação.append(("+", a))
@@ -69,7 +69,7 @@ def sacar(saldo, movimentação):
             
             if a > saldo or a <= 0:
                 print("Valor inválido")
-                return saldo
+                continue
             
             saldo -= a
             movimentação.append(("-", a))
