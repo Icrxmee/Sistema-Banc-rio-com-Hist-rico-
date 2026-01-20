@@ -1,6 +1,8 @@
 from interfacee.interface import *
 from time import sleep
 
+lista = []
+
 def controlePrincipal():
 
     saldo = 0
@@ -23,7 +25,7 @@ def controlePrincipal():
                     verSaldo(saldo)
 
                 case "4":
-                    a = historico(a=True)
+                    historico(mostrar= True)
 
                 case "0":
                     print("Saindo do Sistema")
@@ -48,7 +50,7 @@ def deposito(saldo):
             a = float(input("Quanto deseja depositar: "))
             saldo += a
             
-            historico(a)
+            historico(tipo= "+", valor= a)
             return saldo
 
         except ValueError:
@@ -62,6 +64,8 @@ def sacar(saldo):
             linha()
             a = float(input("Quanto deseja sacar: "))
             saldo -= a
+
+            historico(tipo= "-", valor= a)
             return saldo
         
         except ValueError:
@@ -72,11 +76,20 @@ def verSaldo(saldo):
     linha()
     print(f"Você tem um saldo de: R$ {saldo:.2f}".replace(".",","))
     
-def historico(a=False, b=False):
+def historico(tipo= None, valor= None, mostrar= False):
 
-    lista = []
+    global lista
     
-    if a is True:
-        print(lista)
+    if tipo is not None and valor is not None:
 
-    
+        lista.append((tipo, valor)) 
+
+    if mostrar:
+        linha()
+
+        if not lista:
+            print("Nenhuma movimentação recente")
+
+        else:
+            for tip, val in lista:
+                print(f"{tip} R$ {val:.2f}".replace(".",","))
